@@ -16,6 +16,8 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.data;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
@@ -78,6 +80,6 @@ public interface AccountDAO {
      * @param amount      - amount involved
      * @throws InvalidAccountException - if the account number is invalid
      */
-    public void updateBalance(String accountNo, ExpenseType expenseType, double amount) throws InvalidAccountException;
+    public void updateBalance(String accountNo, ExpenseType expenseType, double amount, SQLiteDatabase db) throws InvalidAccountException;
 
 }

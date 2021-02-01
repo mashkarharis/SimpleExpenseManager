@@ -24,12 +24,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 
 import static lk.ac.mrt.cse.dbs.simpleexpensemanager.Constants.EXPENSE_MANAGER;
 /**
@@ -58,7 +54,7 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_account, container, false);
         accountNumber = (EditText) rootView.findViewById(R.id.account_num);
-        bankName = (EditText) rootView.findViewById(R.id.bank_name);
+        bankName = (EditText) rootView.findViewById(R.id.account_no);
         accountHolderName = (EditText) rootView.findViewById(R.id.account_holder_name);
         initialBalance = (EditText) rootView.findViewById(R.id.initial_balance);
         addAccount = (Button) rootView.findViewById(R.id.add_account);

@@ -52,7 +52,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <EditText
-        android:id="@+id/bank_name"
+        android:id="@+id/account_no"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_column="1"

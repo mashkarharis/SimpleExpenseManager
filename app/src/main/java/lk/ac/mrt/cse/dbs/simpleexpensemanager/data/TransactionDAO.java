@@ -16,6 +16,8 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.data;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public interface TransactionDAO {
      * @param expenseType - type of the expense
      * @param amount      - amount involved
      */
-    public void logTransaction(Date date, String accountNo, ExpenseType expenseType, double amount);
+    public void logTransaction(Transaction transaction, SQLiteDatabase db);
 
     /***
      * Return all the transactions logged.

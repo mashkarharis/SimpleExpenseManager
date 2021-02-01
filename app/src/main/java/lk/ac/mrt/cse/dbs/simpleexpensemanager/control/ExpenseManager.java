@@ -17,14 +17,18 @@
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.control;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.SQLiteHelper;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
@@ -38,6 +42,14 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 public abstract class ExpenseManager implements Serializable {
     private AccountDAO accountsHolder;
     private TransactionDAO transactionsHolder;
+    private Context context;
+    public ExpenseManager(Context context) {
+        this.context=context;
+    }
+
+    public ExpenseManager() {
+
+    }
 
     /***
      * Get list of account numbers as String.
@@ -64,11 +76,25 @@ public abstract class ExpenseManager implements Serializable {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         Date transactionDate = calendar.getTime();
+        SimpleDateFormat format=new SimpleDateFormat("dd-MM-yyyy");
+        String datenew=format.format(transactionDate);
 
         if (!amount.isEmpty()) {
-            double amountVal = Double.parseDouble(amount);
-            transactionsHolder.logTransaction(transactionDate, accountNo, expenseType, amountVal);
-            accountsHolder.updateBalance(accountNo, expenseType, amountVal);
+
+            SQLiteOpenHelper helper=new SQLiteHelper(this.context);
+            SQLiteDatabase db=helper.getWritableDatabase();
+            try {
+                db.beginTransaction();//Auto Commit off
+                double amountVal = Double.parseDouble(amount);
+                Transaction transaction = new Transaction(datenew.toString(), accountNo, expenseType, amountVal);
+                transactionsHolder.logTransaction(transaction,db);
+                accountsHolder.updateBalance(accountNo, expenseType, amountVal,db);
+                db.setTransactionSuccessful();//commit
+            }catch (Exception ex){
+                System.out.println("Failed Transaction");
+            }finally {
+                db.endTransaction();
+            }
         }
     }
 
@@ -78,7 +104,7 @@ public abstract class ExpenseManager implements Serializable {
      * @return
      */
     public List<Transaction> getTransactionLogs() {
-        return transactionsHolder.getPaginatedTransactionLogs(10);
+        return transactionsHolder.getPaginatedTransactionLogs(100);
     }
 
     /***

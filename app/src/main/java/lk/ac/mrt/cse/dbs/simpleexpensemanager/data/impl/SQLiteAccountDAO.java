@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.SQLite.SQLiteHelper;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.SQLiteHelper;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
@@ -74,7 +74,30 @@ public class SQLiteAccountDAO implements AccountDAO {
     }
 
     @Override
-    public void updateBalance(String accountNo, ExpenseType expenseType, double amount) throws InvalidAccountException {
+    public void updateBalance(String accountNo, ExpenseType expenseType, double amount,SQLiteDatabase db) throws InvalidAccountException {
+
+        try {
+            SQLiteStatement stmt = null;
+            switch (expenseType) {
+                case EXPENSE:
+                    stmt = db.compileStatement("UPDATE accounts SET balance = balance - ? where account_no=?;");
+                    stmt.bindString(2,accountNo);
+                    stmt.bindDouble(1, amount);
+
+                    break;
+                case INCOME:
+                    stmt = db.compileStatement("UPDATE accounts SET balance = balance + ? where account_no=?;");
+                    stmt.bindString(2,accountNo);
+                    stmt.bindDouble(1, amount);
+
+                    break;
+            }
+            stmt.execute();
+
+        }catch (Exception ex){
+            throw ex;
+        }
+
 
     }
 }

@@ -25,7 +25,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,8 +53,8 @@ public class ExpenseLogsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_expense_logs, container, false);
-        TableLayout logsTableLayout = (TableLayout) rootView.findViewById(R.id.logs_table);
-        TableRow tableRowHeader = (TableRow) rootView.findViewById(R.id.logs_table_header);
+        TableLayout logsTableLayout = (TableLayout) rootView.findViewById(R.id.logs_table1);
+        TableRow tableRowHeader = (TableRow) rootView.findViewById(R.id.logs_table_header1);
 
         currentExpenseManager = (ExpenseManager) getArguments().get(EXPENSE_MANAGER);
         List<Transaction> transactionList = new ArrayList<>();
@@ -72,9 +71,9 @@ public class ExpenseLogsFragment extends Fragment {
             TableRow tr = new TableRow(rootView.getContext());
             TextView lDateVal = new TextView(rootView.getContext());
 
-            SimpleDateFormat sdf = new SimpleDateFormat(getActivity().getString(R.string.config_date_log_pattern));
-            String formattedDate = sdf.format(transaction.getDate());
-            lDateVal.setText(formattedDate);
+            //SimpleDateFormat sdf = new SimpleDateFormat(getActivity().getString(R.string.config_date_log_pattern));
+           // String formattedDate = sdf.format(transaction.getDate());
+            lDateVal.setText(transaction.getDate());
             tr.addView(lDateVal);
 
             TextView lAccountNoVal = new TextView(rootView.getContext());

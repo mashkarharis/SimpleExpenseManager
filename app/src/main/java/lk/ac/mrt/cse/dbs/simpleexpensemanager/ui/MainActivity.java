@@ -27,7 +27,6 @@ import android.support.v7.widget.Toolbar;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.InMemoryDemoExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -93,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                     return ExpenseLogsFragment.newInstance(expenseManager);
                 case 1:
                     return AddAccountFragment.newInstance(expenseManager);
+                case 3:
+                    return AccountLogs.newInstance(expenseManager);
                 default:
                     return ManageExpensesFragment.newInstance(expenseManager);
             }
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
@@ -113,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
                     return "Logs";
                 case 1:
                     return "Add Account";
+                case 3:
+                    return "Account List";
                 default:
                     return getString(R.string.label_manage);
             }

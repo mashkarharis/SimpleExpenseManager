@@ -25,47 +25,52 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:rowCount="6">
 
-    <TableLayout
-        android:id="@+id/logs_table"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:stretchColumns="*">
+        android:layout_height="283dp">
 
-        <TableRow
-            android:id="@+id/logs_table_header"
+        <TableLayout
+            android:id="@+id/logs_table1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark">
+            android:layout_weight="1"
+            android:stretchColumns="*">
 
-            <TextView
-                android:id="@+id/label_date"
-                android:layout_width="wrap_content"
+            <TableRow
+                android:id="@+id/logs_table_header1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:text="@string/date_text"/>
+                android:background="@color/colorPrimaryDark">
 
-            <TextView
-                android:id="@+id/label_acount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="@string/account_text"/>
+                <TextView
+                    android:id="@+id/account_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:text="@string/date_text" />
 
-            <TextView
-                android:id="@+id/label_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:text="@string/expense_type_text"/>
+                <TextView
+                    android:id="@+id/bank_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:text="@string/account_text" />
 
-            <TextView
-                android:id="@+id/label_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:text="@string/amount_text"/>
-        </TableRow>
-    </TableLayout>
+                <TextView
+                    android:id="@+id/holder_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:text="@string/expense_type_text" />
+
+                <TextView
+                    android:id="@+id/balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:text="@string/amount_text" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 
 </GridLayout>

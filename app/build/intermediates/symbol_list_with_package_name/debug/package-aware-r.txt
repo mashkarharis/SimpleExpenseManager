@@ -715,6 +715,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ic_launcher_background
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
@@ -738,6 +739,7 @@ id SHIFT
 id SYM
 id account_holder_name
 id account_holder_name_tv
+id account_no
 id account_num
 id account_selector
 id account_text_tv
@@ -772,6 +774,7 @@ id amount_text_tv
 id appbar
 id async
 id auto
+id balance
 id bank_name
 id bank_name_tv
 id beginning
@@ -819,6 +822,7 @@ id fill_vertical
 id fixed
 id forever
 id ghost_view
+id holder_name
 id home
 id homeAsUp
 id icon
@@ -831,18 +835,14 @@ id initial_balance
 id initial_balance_tv
 id italic
 id item_touch_helper_previous_elevation
-id label_acount
-id label_amount
-id label_date
-id label_type
 id largeLabel
 id left
 id line1
 id line3
 id listMode
 id list_item
-id logs_table
-id logs_table_header
+id logs_table1
+id logs_table_header1
 id main_content
 id masked
 id media_actions
@@ -1007,9 +1007,12 @@ layout notification_template_part_time
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
+layout show_accounts
 layout support_simple_spinner_dropdown_item
 layout tooltip
 mipmap ic_launcher
+mipmap ic_launcher_foreground
+mipmap ic_launcher_round
 string abc_action_bar_home_description
 string abc_action_bar_home_description_format
 string abc_action_bar_home_subtitle_description_format
