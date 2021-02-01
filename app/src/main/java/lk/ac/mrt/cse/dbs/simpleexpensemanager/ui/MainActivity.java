@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -85,10 +89,10 @@ public class MainActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     return ManageExpensesFragment.newInstance(expenseManager);
-                case 1:
-                    return AddAccountFragment.newInstance(expenseManager);
                 case 2:
                     return ExpenseLogsFragment.newInstance(expenseManager);
+                case 1:
+                    return AddAccountFragment.newInstance(expenseManager);
                 default:
                     return ManageExpensesFragment.newInstance(expenseManager);
             }
@@ -105,10 +109,10 @@ public class MainActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     return getString(R.string.label_manage);
-                case 1:
-                    return getString(R.string.label_add_account);
                 case 2:
-                    return getString(R.string.label_logs);
+                    return "Logs";
+                case 1:
+                    return "Add Account";
                 default:
                     return getString(R.string.label_manage);
             }

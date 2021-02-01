@@ -57,7 +57,25 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
     }
 
     public ManageExpensesFragment() {
+
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!firstload) {
+            currentExpenseManager = (ExpenseManager) getArguments().get(EXPENSE_MANAGER);
+            ArrayAdapter<String> adapter =
+                    null;
+            if (currentExpenseManager != null) {
+                adapter = new ArrayAdapter<>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item,
+                        currentExpenseManager.getAccountNumbersList());
+            }
+            this.accountSelector.setAdapter(adapter);
+        }
+    }
+
+    public boolean firstload=true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +98,7 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
         RadioButton expenseType = (RadioButton) rootView.findViewById(R.id.expense);
         RadioButton incomeType = (RadioButton) rootView.findViewById(R.id.income);
         datePicker = (DatePicker) rootView.findViewById(R.id.date_selector);
+        this.firstload=false;
         return rootView;
     }
 
