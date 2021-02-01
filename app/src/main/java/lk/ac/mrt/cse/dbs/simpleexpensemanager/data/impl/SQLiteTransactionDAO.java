@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.SQLiteHelper;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.SQLiteHelper;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;

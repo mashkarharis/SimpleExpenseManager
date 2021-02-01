@@ -30,6 +30,7 @@ import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 
 import static lk.ac.mrt.cse.dbs.simpleexpensemanager.Constants.EXPENSE_MANAGER;
@@ -58,35 +59,35 @@ public class AccountLogs extends Fragment {
         TableRow tableRowHeader = (TableRow) rootView.findViewById(R.id.logs_table_header1);
 
         currentExpenseManager = (ExpenseManager) getArguments().get(EXPENSE_MANAGER);
-        List<Transaction> transactionList = new ArrayList<>();
+        List<Account> accountList = new ArrayList<>();
         if (currentExpenseManager != null) {
-            transactionList = currentExpenseManager.getTransactionLogs();
+            accountList = currentExpenseManager.getAccountsList();
         }
-        generateTransactionsTable(rootView, logsTableLayout, transactionList);
+        generateAccountsTable(rootView, logsTableLayout, accountList);
         return rootView;
     }
 
-    private void generateTransactionsTable(View rootView, TableLayout logsTableLayout,
-                                           List<Transaction> transactionList) {
-        for (Transaction transaction : transactionList) {
+    private void generateAccountsTable(View rootView, TableLayout logsTableLayout,
+                                           List<Account> accountList) {
+        for (Account account : accountList) {
             TableRow tr = new TableRow(rootView.getContext());
             TextView lDateVal = new TextView(rootView.getContext());
 
             //SimpleDateFormat sdf = new SimpleDateFormat(getActivity().getString(R.string.config_date_log_pattern));
            // String formattedDate = sdf.format(transaction.getDate());
-            lDateVal.setText(transaction.getDate());
+            lDateVal.setText(account.getAccountNo());
             tr.addView(lDateVal);
 
             TextView lAccountNoVal = new TextView(rootView.getContext());
-            lAccountNoVal.setText(transaction.getAccountNo());
+            lAccountNoVal.setText(account.getBankName());
             tr.addView(lAccountNoVal);
 
             TextView lExpenseTypeVal = new TextView(rootView.getContext());
-            lExpenseTypeVal.setText(transaction.getExpenseType().toString());
+            lExpenseTypeVal.setText(account.getAccountHolderName());
             tr.addView(lExpenseTypeVal);
 
             TextView lAmountVal = new TextView(rootView.getContext());
-            lAmountVal.setText(String.valueOf(transaction.getAmount()));
+            lAmountVal.setText(String.valueOf(account.getBalance()));
             tr.addView(lAmountVal);
 
             logsTableLayout.addView(tr);

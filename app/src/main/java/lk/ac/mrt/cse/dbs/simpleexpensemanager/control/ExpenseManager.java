@@ -28,7 +28,6 @@ import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.SQLiteHelper;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
@@ -59,7 +58,7 @@ public abstract class ExpenseManager implements Serializable {
     public List<String> getAccountNumbersList() {
         return accountsHolder.getAccountNumbersList();
     }
-
+    public List<Account> getAccountsList() {return accountsHolder.getAccountsList();}
     /***
      * Update the account balance.
      *

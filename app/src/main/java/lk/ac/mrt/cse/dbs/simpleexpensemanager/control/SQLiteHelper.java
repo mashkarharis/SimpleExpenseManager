@@ -1,4 +1,4 @@
-package lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception;
+package lk.ac.mrt.cse.dbs.simpleexpensemanager.control;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

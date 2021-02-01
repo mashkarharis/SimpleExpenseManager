@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.SQLiteHelper;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.SQLiteHelper;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 
 public class SQLiteAccountDAO implements AccountDAO {
     private Context context;
@@ -43,7 +44,32 @@ public class SQLiteAccountDAO implements AccountDAO {
 
     @Override
     public List<Account> getAccountsList() {
-        return null;
+        try{
+            SQLiteOpenHelper helper=new SQLiteHelper(this.context);
+            SQLiteDatabase db=helper.getReadableDatabase();
+            Cursor res =  db.rawQuery( "select * from accounts",null);
+            List<Account> list_account=new ArrayList<>();
+            res.moveToFirst();
+            while(!res.isAfterLast()){
+
+                Account account=new Account(null,null,null,0);
+
+                account.setAccountNo(res.getString(res.getColumnIndex("account_no")));
+                account.setBankName(res.getString(res.getColumnIndex("bank_name")));
+                account.setAccountHolderName(res.getString(res.getColumnIndex("account_holder")));
+                account.setBalance(Double.parseDouble(res.getString(res.getColumnIndex("balance"))));
+
+                list_account.add(account);
+                res.moveToNext();
+            }
+            return  list_account;
+        }catch (Exception ex){
+            List<Account> list_account=new ArrayList<>();
+            list_account.add(new Account(null,ex.toString(),null,00));
+            System.out.println(ex.toString());
+            return  list_account;
+        }
+
     }
 
     @Override
