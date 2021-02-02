@@ -1,4 +1,4 @@
-#Mon Feb 01 21:19:36 IST 2021
+#Tue Feb 02 08:03:35 IST 2021
 base.0=C\:\\Users\\HP-PAVILLION\\Documents\\GitHub\\SimpleExpenseManager\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

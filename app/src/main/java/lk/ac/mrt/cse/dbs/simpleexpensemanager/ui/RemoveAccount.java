@@ -23,40 +23,43 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 
 import static lk.ac.mrt.cse.dbs.simpleexpensemanager.Constants.EXPENSE_MANAGER;
+
 /**
  *
  */
-public class ManageExpensesFragment extends Fragment implements View.OnClickListener {
-    private Button submitButton;
-    private EditText amount;
+public class RemoveAccount extends Fragment implements View.OnClickListener {
+    private Button removebutton;
+    private TextView accid1;
     private Spinner accountSelector;
-    private RadioGroup expenseTypeGroup;
-    private DatePicker datePicker;
+    private TextView accid2;
+    private TextView accid3;
+    private TextView accid4;
     private ExpenseManager currentExpenseManager;
 
-    public static ManageExpensesFragment newInstance(ExpenseManager expenseManager) {
-        ManageExpensesFragment manageExpensesFragment = new ManageExpensesFragment();
+    public static RemoveAccount newInstance(ExpenseManager expenseManager) {
+        RemoveAccount rmaccFragment = new RemoveAccount();
         Bundle args = new Bundle();
         args.putSerializable(EXPENSE_MANAGER, expenseManager);
-        manageExpensesFragment.setArguments(args);
-        return manageExpensesFragment;
+        rmaccFragment.setArguments(args);
+        return rmaccFragment;
     }
 
-    public ManageExpensesFragment() {
+    public RemoveAccount() {
 
     }
 
@@ -79,12 +82,31 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_manage_expenses, container, false);
-        submitButton = (Button) rootView.findViewById(R.id.remove);
-        submitButton.setOnClickListener(this);
+        View rootView = inflater.inflate(R.layout.remove_account, container, false);
+        removebutton = (Button) rootView.findViewById(R.id.remove);
+        removebutton.setOnClickListener(this);
 
-        amount = (EditText) rootView.findViewById(R.id.amount);
+        accid1=(TextView) rootView.findViewById(R.id.accid1) ;
+        accid2=(TextView) rootView.findViewById(R.id.accid2) ;
+        accid3=(TextView) rootView.findViewById(R.id.accid3) ;
+        accid4=(TextView) rootView.findViewById(R.id.accid4) ;
+
+
         accountSelector = (Spinner) rootView.findViewById(R.id.account_selector1);
+        accountSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String account = (String) accountSelector.getSelectedItem();
+                update(account);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
         currentExpenseManager = (ExpenseManager) getArguments().get(EXPENSE_MANAGER);
         ArrayAdapter<String> adapter =
                 null;
@@ -94,51 +116,37 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
         }
         accountSelector.setAdapter(adapter);
 
-        expenseTypeGroup = (RadioGroup) rootView.findViewById(R.id.expense_type_group);
-        RadioButton expenseType = (RadioButton) rootView.findViewById(R.id.expense);
-        RadioButton incomeType = (RadioButton) rootView.findViewById(R.id.income);
-        datePicker = (DatePicker) rootView.findViewById(R.id.date_selector);
         this.firstload=false;
         return rootView;
+    }
+
+    public void update(String account){
+        Account account_holder= currentExpenseManager.getaccount(account);
+        accid1.setText(" :- "+account_holder.getAccountNo());
+        accid2.setText(" :- "+account_holder.getBankName());
+        accid3.setText(" :- "+account_holder.getAccountHolderName());
+        accid4.setText(" :- "+account_holder.getBalance()+"");
+
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.remove:
-                String selectedAccount = (String) accountSelector.getSelectedItem();
-                String amountStr = amount.getText().toString();
-                RadioButton checkedType = (RadioButton) getActivity().findViewById(expenseTypeGroup
-                        .getCheckedRadioButtonId());
-                String type = (String) checkedType.getText();
-
-                int day = datePicker.getDayOfMonth();
-                int month = datePicker.getMonth();
-                int year = datePicker.getYear();
-
-                if (amountStr.isEmpty()) {
-                    amount.setError(getActivity().getString(R.string.err_amount_required));
-                }
-
+                currentExpenseManager.removeaccount(accountSelector.getSelectedItem().toString());
+                ArrayAdapter<String> adapter =
+                        null;
                 if (currentExpenseManager != null) {
-                    try {
-                        currentExpenseManager.updateAccountBalance(selectedAccount, day, month, year,
-                                ExpenseType.valueOf(type.toUpperCase()), amountStr);
-                    } catch (InvalidAccountException e) {
-                        new AlertDialog.Builder(this.getActivity())
-                                .setTitle(this.getString(R.string.msg_account_update_unable) + selectedAccount)
-                                .setMessage(e.getMessage())
-                                .setNeutralButton(this.getString(R.string.msg_ok),
-                                        new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                    }
-                                }).setIcon(android.R.drawable.ic_dialog_alert).show();
-                    }
+                    adapter = new ArrayAdapter<>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item,
+                            currentExpenseManager.getAccountNumbersList());
                 }
-                amount.getText().clear();
-                break;
+                accountSelector.setAdapter(adapter);
+
+                String account = (String) accountSelector.getSelectedItem();
+                update(account);
+
         }
     }
 }

@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.SQLiteHelper;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.SQLiteManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 
 public class SQLiteAccountDAO implements AccountDAO {
     private Context context;
@@ -24,7 +23,7 @@ public class SQLiteAccountDAO implements AccountDAO {
     @Override
     public List<String> getAccountNumbersList() {
         try{
-            SQLiteOpenHelper helper=new SQLiteHelper(this.context);
+            SQLiteOpenHelper helper=new SQLiteManager(this.context);
             SQLiteDatabase db=helper.getReadableDatabase();
             Cursor res =  db.rawQuery( "select account_no from accounts",null);
             List<String> list_account=new ArrayList<>();
@@ -45,7 +44,7 @@ public class SQLiteAccountDAO implements AccountDAO {
     @Override
     public List<Account> getAccountsList() {
         try{
-            SQLiteOpenHelper helper=new SQLiteHelper(this.context);
+            SQLiteOpenHelper helper=new SQLiteManager(this.context);
             SQLiteDatabase db=helper.getReadableDatabase();
             Cursor res =  db.rawQuery( "select * from accounts",null);
             List<Account> list_account=new ArrayList<>();
@@ -73,14 +72,28 @@ public class SQLiteAccountDAO implements AccountDAO {
     }
 
     @Override
-    public Account getAccount(String accountNo) throws InvalidAccountException {
-        return null;
+    public Account getAccount(String accountNo) {
+        try{
+            SQLiteOpenHelper helper=new SQLiteManager(this.context);
+            SQLiteDatabase db=helper.getReadableDatabase();
+            Cursor res =  db.rawQuery( "select * from accounts where account_no = ?", new String[] {accountNo});
+            res.moveToFirst();
+            Account account=new Account(null,null,null,0);
+            account.setAccountNo(res.getString(res.getColumnIndex("account_no")));
+            account.setBankName(res.getString(res.getColumnIndex("bank_name")));
+            account.setAccountHolderName(res.getString(res.getColumnIndex("account_holder")));
+            account.setBalance(Double.parseDouble(res.getString(res.getColumnIndex("balance"))));
+            return  account;
+        }catch (Exception ex){
+            return  new Account(null,ex.toString(),null,00);
+        }
+
     }
 
     @Override
     public void addAccount(Account account) {
         try {
-            SQLiteOpenHelper helper = new SQLiteHelper(this.context);
+            SQLiteOpenHelper helper = new SQLiteManager(this.context);
             SQLiteDatabase db = helper.getWritableDatabase();
             System.out.println(account.getAccountNo());
             SQLiteStatement stmt = db.compileStatement("INSERT INTO accounts VALUES (?,?,?,?)");
@@ -95,8 +108,16 @@ public class SQLiteAccountDAO implements AccountDAO {
     }
 
     @Override
-    public void removeAccount(String accountNo) throws InvalidAccountException {
-
+    public void removeAccount(String accountNo) {
+        try {
+            SQLiteOpenHelper helper = new SQLiteManager(this.context);
+            SQLiteDatabase db = helper.getWritableDatabase();
+            SQLiteStatement stmt = db.compileStatement("delete from accounts where account_no=?");
+            stmt.bindString(1, accountNo);
+            stmt.execute();
+        }catch (Exception ex){
+            System.out.println(ex.toString());
+        }
     }
 
     @Override

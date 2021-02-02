@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.SQLiteHelper;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.SQLiteManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
@@ -38,7 +38,7 @@ public class SQLiteTransactionDAO implements TransactionDAO {
     @Override
     public List<Transaction> getAllTransactionLogs() {
         try{
-            SQLiteOpenHelper helper=new SQLiteHelper(this.context);
+            SQLiteOpenHelper helper=new SQLiteManager(this.context);
             SQLiteDatabase db=helper.getReadableDatabase();
             Cursor res =  db.rawQuery( "select * from transactions",null);
             List<Transaction> list_transaction=new ArrayList<>();

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class SQLiteHelper  extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "180048D_1.db";
+public class SQLiteManager extends SQLiteOpenHelper {
+    public static final String DATABASE_NAME = "180048D_V2.db";
 
-    public SQLiteHelper(Context context) {
+    public SQLiteManager(Context context) {
         super(context, DATABASE_NAME , null, 1);
     }
     @Override
@@ -26,7 +26,7 @@ public class SQLiteHelper  extends SQLiteOpenHelper {
                         "account_no TEXT NOT NULL," +
                         "expense_type TEXT NOT NULL," +
                         "amount REAL NOT NULL," +
-                        "FOREIGN KEY (account_no) REFERENCES accounts(account_no)," +
+                        "FOREIGN KEY (account_no) REFERENCES accounts(account_no) ON UPDATE CASCADE ON DELETE CASCADE," +
                         "CHECK (expense_type IN ('EXPENSE','INCOME') )" +
                         ")"
         );

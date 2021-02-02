@@ -51,7 +51,7 @@ public interface AccountDAO {
      * @return - the corresponding Account
      * @throws InvalidAccountException - if the account number is invalid
      */
-    public Account getAccount(String accountNo) throws InvalidAccountException;
+    public Account getAccount(String accountNo);
 
     /***
      * Add an account to the accounts collection.
@@ -66,7 +66,7 @@ public interface AccountDAO {
      * @param accountNo - of the account to be removed.
      * @throws InvalidAccountException - if the account number is invalid
      */
-    public void removeAccount(String accountNo) throws InvalidAccountException;
+    public void removeAccount(String accountNo);
 
     /***
      * Update the balance of the given account. The type of the expense is specified in order to determine which

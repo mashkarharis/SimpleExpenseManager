@@ -737,11 +737,15 @@ id FUNCTION
 id META
 id SHIFT
 id SYM
+id accid1
+id accid2
+id accid3
+id accid4
 id account_holder_name
 id account_holder_name_tv
 id account_no
 id account_num
-id account_selector
+id account_selector1
 id account_text_tv
 id account_tv
 id action0
@@ -771,6 +775,7 @@ id all
 id always
 id amount
 id amount_text_tv
+id amount_text_tv2
 id appbar
 id async
 id auto
@@ -864,6 +869,7 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
+id remove
 id right
 id right_icon
 id right_side
@@ -903,7 +909,6 @@ id src_over
 id start
 id status_bar_latest_event_content
 id submenuarrow
-id submit_amount
 id submit_area
 id tabMode
 id tabs
@@ -1004,6 +1009,7 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout remove_account
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material

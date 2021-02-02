@@ -59,6 +59,7 @@ public abstract class ExpenseManager implements Serializable {
         return accountsHolder.getAccountNumbersList();
     }
     public List<Account> getAccountsList() {return accountsHolder.getAccountsList();}
+    public Account getaccount(String account_no) {return accountsHolder.getAccount(account_no);}
     /***
      * Update the account balance.
      *
@@ -80,7 +81,7 @@ public abstract class ExpenseManager implements Serializable {
 
         if (!amount.isEmpty()) {
 
-            SQLiteOpenHelper helper=new SQLiteHelper(this.context);
+            SQLiteOpenHelper helper=new SQLiteManager(this.context);
             SQLiteDatabase db=helper.getWritableDatabase();
             try {
                 db.beginTransaction();//Auto Commit off
@@ -159,6 +160,9 @@ public abstract class ExpenseManager implements Serializable {
      * This method should be implemented by the concrete implementation of this class. It will dictate how the DAO
      * objects will be initialized.
      */
-    public abstract void setup() throws ExpenseManagerException;
-    public abstract void setup(Context context) throws ExpenseManagerException;
+   public abstract void setup(Context context) throws ExpenseManagerException;
+
+    public void removeaccount(String account_no) {
+        accountsHolder.removeAccount(account_no);
+    }
 }

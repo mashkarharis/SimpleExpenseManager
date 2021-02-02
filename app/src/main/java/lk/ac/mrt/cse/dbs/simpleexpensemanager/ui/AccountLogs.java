@@ -21,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -40,6 +41,9 @@ import static lk.ac.mrt.cse.dbs.simpleexpensemanager.Constants.EXPENSE_MANAGER;
  */
 public class AccountLogs extends Fragment {
     private ExpenseManager currentExpenseManager;
+    public boolean firstload=true;
+    TableLayout linflater;
+    View vgroup;
 
     public static AccountLogs newInstance(ExpenseManager expenseManager) {
         AccountLogs AccountLogsFragment = new AccountLogs();
@@ -63,8 +67,36 @@ public class AccountLogs extends Fragment {
         if (currentExpenseManager != null) {
             accountList = currentExpenseManager.getAccountsList();
         }
+        this.linflater=logsTableLayout;
+        this.vgroup=rootView;
+
         generateAccountsTable(rootView, logsTableLayout, accountList);
+        this.firstload=false;
         return rootView;
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!firstload) {
+            currentExpenseManager = (ExpenseManager) getArguments().get(EXPENSE_MANAGER);
+            List<Account> accountList = new ArrayList<>();
+            if (currentExpenseManager != null) {
+                accountList = currentExpenseManager.getAccountsList();
+            }
+            this.linflater.removeAllViews();
+            List<Account> acc=new ArrayList<>();
+
+            acc.add(new Account("Account No","Bank Name","Account Holder",000000));
+            for (Account a:accountList
+                 ) {
+                acc.add(a);
+            }
+            generateAccountsTable(this.vgroup, this.linflater, acc);
+
+
+        }
     }
 
     private void generateAccountsTable(View rootView, TableLayout logsTableLayout,

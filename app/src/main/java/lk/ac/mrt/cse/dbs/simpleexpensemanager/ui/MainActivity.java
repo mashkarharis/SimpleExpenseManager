@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                     return AddAccountFragment.newInstance(expenseManager);
                 case 3:
                     return AccountLogs.newInstance(expenseManager);
+                case 4:
+                    return RemoveAccount.newInstance(expenseManager);
                 default:
                     return ManageExpensesFragment.newInstance(expenseManager);
             }
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 5;
         }
 
         @Override
@@ -116,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
                     return "Add Account";
                 case 3:
                     return "Account List";
+                case 4:
+                    return "Remove Account";
                 default:
                     return getString(R.string.label_manage);
             }

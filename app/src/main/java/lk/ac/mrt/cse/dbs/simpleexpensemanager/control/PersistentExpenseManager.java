@@ -15,12 +15,7 @@ public class PersistentExpenseManager extends ExpenseManager {
         setup(context);
     }
 
-    @Override
-    public void setup() throws ExpenseManagerException {
-
-    }
-
-    @Override
+   @Override
     public void setup(Context context) {
         /*** Begin generating dummy data for In-Memory implementation ***/
 

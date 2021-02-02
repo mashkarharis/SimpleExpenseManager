@@ -27,6 +27,31 @@
             tools:context=".MainActivity$PlaceholderFragment">
 
     <TextView
+        android:id="@+id/amount_text_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:text="Holder Name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/accid3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="4"
+        android:layout_column="1"
+        android:text="-----" />
+
+    <TextView
+        android:id="@+id/accid4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="5"
+        android:layout_column="0"
+        android:text="-----" />
+
+    <TextView
         android:id="@+id/account_text_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,77 +67,54 @@
         android:layout_column="1"
         android:layout_row="0"/>
 
-    <TextView
-        android:id="@+id/expense_type_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_row="1"
-        android:text="@string/expense_type_text"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
     <RadioGroup
         android:id="@+id/expense_type_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_column="1"
-        android:layout_row="1">
-
-        <RadioButton
-            android:id="@+id/expense"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:checked="true"
-            android:text="@string/expense_text"/>
-
-        <RadioButton
-            android:id="@+id/income"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/income_text"/>
-    </RadioGroup>
+        android:layout_row="1"/>
 
     <TextView
         android:id="@+id/amount_text_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_row="2"
         android:layout_column="0"
-        android:layout_row="2"
-        android:text="@string/amount_text"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    <EditText
-        android:id="@+id/amount"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:layout_row="2"
-        android:inputType="numberDecimal"/>
+        android:text="Account No."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_column="0"
         android:layout_row="3"
-        android:text="@string/date_text"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:layout_column="0"
+        android:text="Bank"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <DatePicker
-        android:id="@+id/date_selector"
+    <TextView
+        android:id="@+id/accid1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_row="2"
         android:layout_column="1"
+        android:text="-----" />
+
+    <TextView
+        android:id="@+id/accid2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_row="3"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner"/>
+        android:layout_column="1"
+        android:text="-----" />
 
     <Button
         android:id="@+id/remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_row="4"
-        android:text="@string/submit"/>
+        android:layout_row="5"
+        android:layout_column="1"
+        android:onClick="remove"
+        android:text="Remove" />
 
 </GridLayout>

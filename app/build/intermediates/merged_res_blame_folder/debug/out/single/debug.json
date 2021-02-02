@@ -60,6 +60,10 @@
         "source": "C:\\Users\\HP-PAVILLION\\Documents\\GitHub\\SimpleExpenseManager\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
+        "merged": "C:\\Users\\HP-PAVILLION\\Documents\\GitHub\\SimpleExpenseManager\\app\\build\\intermediates\\res\\merged\\debug\\layout_remove_account.xml.flat",
+        "source": "C:\\Users\\HP-PAVILLION\\Documents\\GitHub\\SimpleExpenseManager\\app\\src\\main\\res\\layout\\remove_account.xml"
+    },
+    {
         "merged": "C:\\Users\\HP-PAVILLION\\Documents\\GitHub\\SimpleExpenseManager\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher_background.png.flat",
         "source": "C:\\Users\\HP-PAVILLION\\Documents\\GitHub\\SimpleExpenseManager\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_launcher_background.png"
     },
